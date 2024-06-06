@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+class WebView extends StatefulWidget {
+  const WebView({super.key});
+
+  @override
+  State<WebView> createState() => _WebViewState();
+}
+
+class _WebViewState extends State<WebView> {
+  final controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.disabled)
+    ..loadRequest(Uri.parse('https://moca.unimma.ac.id'));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home Page'),
+          title: Text("Web View"),
         ),
-        body: Center(
-            child: Column(
-          children: [
-            Text('Home'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(onPressed: () {}, child: Text('profil')),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text('Kembali')),
-              ],
-            )
-          ],
-        )));
+        body: WebViewWidget(controller: controller));
   }
 }

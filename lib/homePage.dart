@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/loginPage.dart';
+import 'package:myapp/webView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,10 +19,18 @@ class _HomePageState extends State<HomePage> {
   String token = "pppp";
   void goo() {}
   String namaDepan = "Rafi";
-
+  @override
   void initState() {
     super.initState();
-    _loadToken();
+    // _loadToken();
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Future<void> _loadTokens() async {
@@ -30,9 +40,13 @@ class _HomePageState extends State<HomePage> {
     // });
   }
 
+  String nama = 'ROfi ABul Hasani token';
   Future _loadToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    print(pref.getString('token'));
+
+    nama = pref.getString('token').toString();
+    print(nama);
+    setState(() {});
   }
 
   Future _clearToken() async {
@@ -60,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         _loadToken();
                       },
-                      child: Text('Rofi Abul Hasani')),
+                      child: Text('$nama')),
                   subtitle: ElevatedButton(
                       onPressed: () {
                         _clearToken();
@@ -72,6 +86,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                     onPressed: () {
+                      _clearToken();
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Loginpage()));
                     },
@@ -103,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                           ),
                           Text(
-                            "Aplikasi A",
+                            "Web View",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -112,7 +127,11 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      print('Web View');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => WebView()));
+                    },
                   ),
                   TextButton(
                     child: Container(
@@ -139,7 +158,10 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      print('Open Browser');
+                      _launchURL('https://www.flutter.dev');
+                    },
                   ),
                   TextButton(
                     child: Container(
@@ -227,5 +249,19 @@ class _HomePageState extends State<HomePage> {
         // onTap: _onItemTapped,
       ),
     );
+  }
+}
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

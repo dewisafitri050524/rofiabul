@@ -19,6 +19,7 @@ class Loginpage extends StatelessWidget {
   Future<void> SaveToken(String val) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('token', val);
+
     print('simpan token ====  $val');
     print(pref.getString('token'));
   }
@@ -36,6 +37,7 @@ class Loginpage extends StatelessWidget {
       final data = json.decode(response.body);
       print(data['token']);
       await SaveToken(data['token']);
+
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // // await prefs.setString('token', data['token']);
       // prefs.setString('token', data['token'].toString());

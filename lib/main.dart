@@ -13,27 +13,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String ss = "";
-
     Future<void> cekLogin() async {
       final pref = await SharedPreferences.getInstance();
       if (!pref.containsKey('token')) {}
-    }
-
-    Future<void> _checkLoginStatus() async {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-
-      if (pref.getString('token') != null) {
-        Navigator.pushReplacementNamed(context, '/home');
-      } else {
-        Navigator.pushReplacementNamed(context, '/login');
-      }
-      print(('masuuk'));
-    }
-
-    void initState() {
-      // super.initState();
-      _checkLoginStatus();
     }
 
     return MaterialApp(
