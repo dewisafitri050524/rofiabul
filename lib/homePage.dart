@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/getDataPage.dart';
 import 'package:myapp/loginPage.dart';
 import 'package:myapp/webView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -179,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                           ),
                           Text(
-                            "Aplikasi C",
+                            "Get Data",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -188,7 +189,12 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => GetDataPage()));
+                    },
                   ),
                   TextButton(
                     child: Container(

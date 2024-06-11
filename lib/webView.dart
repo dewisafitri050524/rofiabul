@@ -19,6 +19,6 @@ class _WebViewState extends State<WebView> {
         appBar: AppBar(
           title: Text("Web View"),
         ),
-        body: WebViewWidget(controller: controller));
+        body: Text('Web View'));
   }
 }
